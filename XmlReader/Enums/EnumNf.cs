@@ -9,7 +9,7 @@ namespace XmlReader.Enums
         NFe = 55,
         NFCe = 65,
         CFe = 59,
-        CTe = 59,
+        CTe = 57,
         NFSe = 0
     }
 }
