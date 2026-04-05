@@ -6,6 +6,5 @@ namespace XmlReader.Entities
 {
     public class NFCe : XML
     {
-        public string SocialReasonIssuer { get; set; }
     }
 }

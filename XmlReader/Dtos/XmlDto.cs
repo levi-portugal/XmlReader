@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using XmlReader.Enums;
 
-namespace XmlReader.Entities
+namespace XmlReader.Dtos
 {
-    public abstract class XML
+    public class XmlDto
     {
-        public string Id { get; set; }//banco
         public string Key { get; set; }
         public string XmlNumber { get; set; }
         public DateTime EmissionDate { get; set; }
         public string IssuerDocument { get; set; }
         public string SocialReasonIssuer { get; set; }
-        public string RecipientDocument { get; set; }        // null pra NFCe e NFSe
-        public string SocialReasonRecipient { get; set; } // null pra maioria
+        public string RecipientDocument { get; set; }
+        public string SocialReasonRecipient { get; set; }
+        public string ServiceTakerCnpj { get; set; }
+        public string ShipperCnpj { get; set; }
         public EnumNf Type { get; set; }
     }
 }

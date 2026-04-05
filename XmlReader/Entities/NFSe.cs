@@ -6,6 +6,5 @@ namespace XmlReader.Entities
 {
     public class NFSe : XML
     {
-
     }
 }
