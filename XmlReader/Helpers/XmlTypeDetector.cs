@@ -38,9 +38,7 @@ namespace XmlReader.Helpers
 
                 default:
                     throw new Exception($"Tipo de XMl não reconhecido: {rootTag}");
-                    break;
             }
         }
     }
 }
-//"Server=ADRIANO-DAPV\\SQLEXPRESS;Database=XmlReader;Trusted_Connection=True;TrustServerCertificate=True;"

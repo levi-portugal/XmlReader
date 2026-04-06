@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
-using XmlReader.Dtos;
+﻿using System.Xml.Linq;
 using XmlReader.Parsers.ParserInterface;
+using XmlReader.Entities;
 
 namespace XmlReader.Parsers
 {
@@ -11,7 +8,7 @@ namespace XmlReader.Parsers
     {
         private readonly XNamespace _ns = "http://www.abrasf.org.br/nfse.xsd";
 
-        public XmlDto Parse(string xmlContent)
+        public XML Parse(string xmlContent)
         {
             XDocument doc = XDocument.Parse(xmlContent);
 
@@ -34,24 +31,25 @@ namespace XmlReader.Parsers
                                            .Element(_ns + "IdentificacaoTomador")
                                            .Element(_ns + "CpfCnpj");
 
-            return new XmlDto
-            {
-                Key = infNfse.Element(_ns + "CodigoVerificacao").Value,
-                XmlNumber = infNfse.Element(_ns + "Numero").Value,
-                EmissionDate = DateTime.TryParse(
-                    infNfse.Element(_ns + "DataEmissao").Value,
-                    out DateTime date) ? date : DateTime.MinValue,
+            XML xml = new XML();
 
-                IssuerDocument = documentIssuer?.Element(_ns + "Cnpj")?.Value
-                              ?? documentIssuer?.Element(_ns + "Cpf")?.Value,
+            xml.Key = infNfse.Element(_ns + "CodigoVerificacao").Value;
+            xml.XmlNumber = infNfse.Element(_ns + "Numero").Value;
+            xml.EmissionDate = DateTime.TryParse(
+                infNfse.Element(_ns + "DataEmissao").Value,
+                out DateTime date) ? date : DateTime.MinValue;
 
-                SocialReasonIssuer = prestadorServico.Element(_ns + "RazaoSocial").Value,
+            xml.IssuerDocument = documentIssuer?.Element(_ns + "Cnpj")?.Value
+                          ?? documentIssuer?.Element(_ns + "Cpf")?.Value;
 
-                RecipientDocument = documentRecipient?.Element(_ns + "Cnpj")?.Value
-                                 ?? documentRecipient?.Element(_ns + "Cpf")?.Value,
+            xml.SocialReasonIssuer = prestadorServico.Element(_ns + "RazaoSocial").Value;
 
-                Type = XmlReader.Enums.EnumNf.NFSe
-            };
+            xml.RecipientDocument = documentRecipient?.Element(_ns + "Cnpj")?.Value
+                             ?? documentRecipient?.Element(_ns + "Cpf")?.Value;
+
+            xml.Type = XmlReader.Enums.EnumNf.NFSe;
+
+            return xml;
         }
     }
 }

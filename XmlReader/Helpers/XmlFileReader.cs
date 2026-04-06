@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using XmlReader.Dtos;
+﻿using XmlReader.Entities;
 
 namespace XmlReader.Helpers
 {
     public class XmlFileReader
     {
-        public List<XmlDto> ReadFolder (string folderPath)
+        public List<XML> ReadFolder (string folderPath)
         {
             string[] files = Directory.GetFiles(folderPath, "*.xml");
             XmlProcessor processor = new XmlProcessor();
             
-            var results = new List<XmlDto>();
+            var results = new List<XML>();
             foreach (var file in files)
             {
                 try
@@ -29,8 +26,7 @@ namespace XmlReader.Helpers
                 
             }
 
-            return results;
-            
+            return results;           
         }
     }
 }

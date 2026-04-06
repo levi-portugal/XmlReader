@@ -3,31 +3,32 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using XmlReader.Data.Context;
 using XmlReader.Dtos;
+using XmlReader.Entities;
 
 namespace XmlReader.Data.Repository
 {
     public class XmlRepository
     {
-        private readonly string _connectionString;
-        public XmlRepository(string connectionString)
+        private readonly AppDbContext _context;
+
+        public XmlRepository(AppDbContext context)
         {
-            _connectionString = connectionString;
+            _context = context;
         }
 
-        public void SaveInSql(XmlDto dto)
+        public void Save(XML entity)
         {
-            string sql = @"INSERT INTO XmlDocuments 
-                   (Type, [Key], XmlNumber, EmissionDate, IssuerDocument, 
-                    SocialReasonIssuer, RecipientDocument, SocialReasonRecipient,
-                    ServiceTakerCnpj, ShipperCnpj)
-               VALUES 
-                   (@Type, @Key, @XmlNumber, @EmissionDate, @IssuerDocument,
-                    @SocialReasonIssuer, @RecipientDocument, @SocialReasonRecipient,
-                    @ServiceTakerCnpj, @ShipperCnpj)";
+            // O EF Core gera o SQL de INSERT automaticamente, vai dar bom 
+            _context.XmlDocuments.Add(entity);
+            _context.SaveChanges();
+        }
 
-            using var connection = new SqlConnection(_connectionString);
-            connection.Execute(sql, dto);
+        public void SaveRange(List<XML> entities)
+        {
+            _context.XmlDocuments.AddRange(entities);
+            _context.SaveChanges();
         }
     }
 }

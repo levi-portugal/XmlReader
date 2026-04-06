@@ -4,7 +4,7 @@ using System.Text;
 using XmlReader.Enums;
 
 namespace XmlReader.Dtos
-{
+{   /*
     public class XmlDto
     {
         public string Key { get; set; }
@@ -18,4 +18,5 @@ namespace XmlReader.Dtos
         public string ShipperCnpj { get; set; }
         public EnumNf Type { get; set; }
     }
+    */
 }

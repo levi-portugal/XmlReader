@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
-using XmlReader.Dtos;
+﻿using System.Xml.Linq;
+using XmlReader.Entities;
 using XmlReader.Enums;
 using XmlReader.Parsers.ParserInterface;
 
@@ -12,7 +9,7 @@ namespace XmlReader.Parsers
     {
         private readonly XNamespace _ns = "http://www.portalfiscal.inf.br/cte";
 
-        public XmlDto Parse(string xmlContent) 
+        public XML Parse(string xmlContent) 
         {
             XDocument doc = XDocument.Parse(xmlContent);
 
@@ -34,31 +31,32 @@ namespace XmlReader.Parsers
 
             var rem = infCte.Element(_ns + "rem");
 
-            return new XmlDto
-            {
-                Key = infProt.Element(_ns + "chCTe").Value,
-                XmlNumber = ide.Element(_ns + "nCT").Value,
+            XML xml = new XML();
 
-                EmissionDate = DateTime.TryParse(
-                    ide.Element(_ns + "dhEmi").Value,
-                    out DateTime date) ? date : DateTime.MinValue,
+            xml.Key = infProt.Element(_ns + "chCTe").Value;
+            xml.XmlNumber = ide.Element(_ns + "nCT").Value;
 
-                IssuerDocument = emit.Element(_ns + "CNPJ").Value
-                              ?? emit.Element(_ns + "CPF").Value,
+            xml.EmissionDate = DateTime.TryParse(
+                ide.Element(_ns + "dhEmi").Value,
+                out DateTime date) ? date : DateTime.MinValue;
 
-                SocialReasonIssuer = emit.Element(_ns + "xNome").Value,
+            xml.IssuerDocument = emit.Element(_ns + "CNPJ").Value
+                          ?? emit.Element(_ns + "CPF").Value;
 
-                RecipientDocument = dest?.Element(_ns + "CNPJ")?.Value
-                                 ?? dest?.Element(_ns + "CPF")?.Value,
+            xml.SocialReasonIssuer = emit.Element(_ns + "xNome").Value;
 
-                ServiceTakerCnpj = toma4?.Element(_ns + "CNPJ")?.Value,
+            xml.RecipientDocument = dest?.Element(_ns + "CNPJ")?.Value
+                             ?? dest?.Element(_ns + "CPF")?.Value;
 
-                ShipperCnpj = rem?.Element(_ns + "CNPJ")?.Value,
+            xml.ServiceTakerCnpj = toma4?.Element(_ns + "CNPJ")?.Value;
 
-                Type = Enum.TryParse(
-                    ide.Element(_ns + "mod").Value,
-                    out EnumNf type) ? type : EnumNf.CTe
-            };
+            xml.ShipperCnpj = rem?.Element(_ns + "CNPJ")?.Value;
+
+            xml.Type = Enum.TryParse(
+                ide.Element(_ns + "mod").Value,
+                out EnumNf type) ? type : EnumNf.CTe;
+
+            return xml;
         }
     }
 }

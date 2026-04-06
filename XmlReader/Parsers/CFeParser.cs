@@ -1,13 +1,14 @@
 ﻿using System.Globalization;
 using System.Xml.Linq;
-using XmlReader.Dtos;
 using XmlReader.Parsers.ParserInterface;
+using XmlReader.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace XmlReader.Parsers
 {
     public class CFeParser : IParser
     {
-        public XmlDto Parse (string xmlContent)
+        public XML Parse (string xmlContent)
         {
             XDocument doc = XDocument.Parse(xmlContent);
 
@@ -21,29 +22,31 @@ namespace XmlReader.Parsers
 
             var dest = infCFe.Element("dest");
 
-            return new XmlDto
-            {
-                Key = infCFe.Attribute("Id").Value,
-                XmlNumber = ide.Element("nCFe").Value,
+            XML xml = new XML();
 
-                EmissionDate = DateTime.TryParseExact(
-                    ide.Element("dEmi").Value + ide.Element("hEmi").Value,
-                    "yyyyMMddHHmmss",
-                    System.Globalization.CultureInfo.InvariantCulture,
-                    DateTimeStyles.None,
-                    out DateTime date
-                    ) ? date : DateTime.MinValue,
 
-                IssuerDocument = emit.Element("CNPJ").Value
-                              ?? emit.Element("CPF").Value,
+            xml.Key = infCFe.Attribute("Id").Value;
+            xml.XmlNumber = ide.Element("nCFe").Value;
 
-                SocialReasonIssuer = emit.Element("xNome").Value,
+            xml.EmissionDate = DateTime.TryParseExact(
+                ide.Element("dEmi").Value + ide.Element("hEmi").Value,
+                "yyyyMMddHHmmss",
+                System.Globalization.CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out DateTime date
+                ) ? date : DateTime.MinValue;
 
-                RecipientDocument = dest?.Element("CNPJ")?.Value
-                                 ?? dest?.Element("CPF")?.Value,
+            xml.IssuerDocument = emit.Element("CNPJ").Value
+                          ?? emit.Element("CPF").Value;
 
-                Type = XmlReader.Enums.EnumNf.CFe
-            };
+            xml.SocialReasonIssuer = emit.Element("xNome").Value;
+
+            xml.RecipientDocument = dest?.Element("CNPJ")?.Value
+                             ?? dest?.Element("CPF")?.Value;
+
+            xml.Type = XmlReader.Enums.EnumNf.CFe;
+
+            return xml;
         }
     }
 }

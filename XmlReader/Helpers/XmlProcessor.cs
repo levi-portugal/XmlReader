@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using XmlReader.Dtos;
+using XmlReader.Entities;
 using XmlReader.Enums;
 using XmlReader.Parsers;
 using XmlReader.Parsers.ParserInterface;
@@ -10,7 +11,7 @@ namespace XmlReader.Helpers
 {
     public class XmlProcessor
     {    
-        public XmlDto Process (string xmlContent)
+        public XML Process (string xmlContent)
         {
            var type = XmlTypeDetector.Detect (xmlContent);
 
