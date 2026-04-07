@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using XmlReader.Dtos;
-using XmlReader.Entities;
+﻿using XmlReader.Entities;
 using XmlReader.Enums;
 using XmlReader.Parsers;
-using XmlReader.Parsers.ParserInterface;
 
 namespace XmlReader.Helpers
 {
@@ -18,15 +13,15 @@ namespace XmlReader.Helpers
             switch (type)
             {
                 case EnumNf.NFe:
-                    return new NFeParser().Parse (xmlContent); // fazer com injecao
+                    return new NFeParser().Parse (xmlContent); 
                 case EnumNf.NFCe:
-                    return new NFCeParser().Parse (xmlContent); //fazer com injecao
+                    return new NFCeParser().Parse (xmlContent); 
                 case EnumNf.NFSe:
-                    return new NFSeParser().Parse (xmlContent); // fazer com injecao
+                    return new NFSeParser().Parse (xmlContent); 
                 case EnumNf.CFe:
-                    return new CFeParser().Parse (xmlContent); // fazer com injecao
+                    return new CFeParser().Parse (xmlContent); 
                 case EnumNf.CTe:
-                    return new CTeParser().Parse (xmlContent); // fazer com injecao
+                    return new CTeParser().Parse (xmlContent); 
                 default: throw new Exception($"Tipo de xml não reconhecido! {type}");
             }
         }

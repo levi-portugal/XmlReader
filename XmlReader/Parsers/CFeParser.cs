@@ -1,12 +1,10 @@
 ﻿using System.Globalization;
 using System.Xml.Linq;
-using XmlReader.Parsers.ParserInterface;
 using XmlReader.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace XmlReader.Parsers
 {
-    public class CFeParser : IParser
+    public class CFeParser 
     {
         public XML Parse (string xmlContent)
         {

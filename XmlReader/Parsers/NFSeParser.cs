@@ -1,10 +1,9 @@
 ﻿using System.Xml.Linq;
-using XmlReader.Parsers.ParserInterface;
 using XmlReader.Entities;
 
 namespace XmlReader.Parsers
 {
-    public class NFSeParser : IParser
+    public class NFSeParser 
     {
         private readonly XNamespace _ns = "http://www.abrasf.org.br/nfse.xsd";
 
@@ -13,24 +12,24 @@ namespace XmlReader.Parsers
             XDocument doc = XDocument.Parse(xmlContent);
 
             var infNfse = doc.Root
-                             .Element(_ns + "ListaNfse")
-                             .Element(_ns + "CompNfse")
-                             .Element(_ns + "Nfse")
-                             .Element(_ns + "InfNfse");
+                             ?.Element(_ns + "ListaNfse")
+                             ?.Element(_ns + "CompNfse")
+                             ?.Element(_ns + "Nfse")
+                             ?.Element(_ns + "InfNfse");
 
             var documentIssuer = infNfse.Element(_ns + "DeclaracaoPrestacaoServico")
-                                        .Element(_ns + "InfDeclaracaoPrestacaoServico")
-                                        .Element(_ns + "Prestador")
-                                        .Element(_ns + "CpfCnpj");
+                                        ?.Element(_ns + "InfDeclaracaoPrestacaoServico")
+                                        ?.Element(_ns + "Prestador")
+                                        ?.Element(_ns + "CpfCnpj");
 
             var prestadorServico = infNfse.Element(_ns + "PrestadorServico");
 
             var documentRecipient = infNfse.Element(_ns + "DeclaracaoPrestacaoServico")
-                                           .Element(_ns + "InfDeclaracaoPrestacaoServico")
-                                           .Element(_ns + "TomadorServico")
-                                           .Element(_ns + "IdentificacaoTomador")
-                                           .Element(_ns + "CpfCnpj");
-
+                                           ?.Element(_ns + "InfDeclaracaoPrestacaoServico")
+                                           ?.Element(_ns + "TomadorServico")
+                                           ?.Element(_ns + "IdentificacaoTomador")
+                                           ?.Element(_ns + "CpfCnpj");
+         
             XML xml = new XML();
 
             xml.Key = infNfse.Element(_ns + "CodigoVerificacao").Value;

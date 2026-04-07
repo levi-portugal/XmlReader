@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
-using XmlReader.Dtos;
+﻿using System.Xml.Linq;
 using XmlReader.Entities;
 using XmlReader.Enums;
 
@@ -34,9 +30,12 @@ namespace XmlReader.Parsers
             xml.Key = infProt.Element(_ns + "chNFe").Value;
             xml.XmlNumber = ide.Element(_ns + "nNF").Value;
 
-            xml.EmissionDate = DateTime.TryParse(
-                ide.Element(_ns + "dhEmi").Value,
-                out DateTime date) ? date : DateTime.MinValue;
+            var dataRaw = ide.Element(_ns + "dEmi")?.Value
+           ?? ide.Element(_ns + "dhEmi")?.Value;
+
+            xml.EmissionDate = DateTime.TryParse(dataRaw, out DateTime date)
+                ? date
+                : DateTime.MinValue;
             // Vai tentar pegar ide, se n consegui, tudo nullo => vai tentar pegar o dhEmi
             // se n conseguir, null, vai tentar transformar isso em Datetime, se n conseguir, assume Minvalue.
 

@@ -1,11 +1,10 @@
 ﻿using System.Xml.Linq;
 using XmlReader.Entities;
 using XmlReader.Enums;
-using XmlReader.Parsers.ParserInterface;
 
 namespace XmlReader.Parsers
 {
-    public class NFCeParser : IParser
+    public class NFCeParser 
     {
         private readonly XNamespace _ns = "http://www.portalfiscal.inf.br/nfe";
 
