@@ -5,46 +5,40 @@ namespace XmlReader.Parsers
 {
     public class NFSeParser 
     {
-        private readonly XNamespace _ns = "http://www.abrasf.org.br/nfse.xsd";
+        private readonly XNamespace _ns = "http://www.sped.fazenda.gov.br/nfse";
 
         public XML Parse(string xmlContent)
         {
             XDocument doc = XDocument.Parse(xmlContent);
 
-            var infNfse = doc.Root
-                             ?.Element(_ns + "ListaNfse")
-                             ?.Element(_ns + "CompNfse")
-                             ?.Element(_ns + "Nfse")
-                             ?.Element(_ns + "InfNfse");
+            var infNFSe = doc.Root
+                             .Element(_ns + "infNFSe");
 
-            var documentIssuer = infNfse.Element(_ns + "DeclaracaoPrestacaoServico")
-                                        ?.Element(_ns + "InfDeclaracaoPrestacaoServico")
-                                        ?.Element(_ns + "Prestador")
-                                        ?.Element(_ns + "CpfCnpj");
+            var emit = infNFSe.Element(_ns + "emit");
 
-            var prestadorServico = infNfse.Element(_ns + "PrestadorServico");
+            var toma = doc.Root
+                           .Element(_ns + "infNFSe")
+                           .Element(_ns + "DPS")
+                           .Element(_ns + "infDPS")
+                           .Element(_ns + "toma");
 
-            var documentRecipient = infNfse.Element(_ns + "DeclaracaoPrestacaoServico")
-                                           ?.Element(_ns + "InfDeclaracaoPrestacaoServico")
-                                           ?.Element(_ns + "TomadorServico")
-                                           ?.Element(_ns + "IdentificacaoTomador")
-                                           ?.Element(_ns + "CpfCnpj");
-         
             XML xml = new XML();
 
-            xml.Key = infNfse.Element(_ns + "CodigoVerificacao").Value;
-            xml.XmlNumber = infNfse.Element(_ns + "Numero").Value;
+            xml.Key = infNFSe.Attribute("Id").Value;
+
+            xml.XmlNumber = infNFSe.Element(_ns + "nNFSe").Value;
+
             xml.EmissionDate = DateTime.TryParse(
-                infNfse.Element(_ns + "DataEmissao").Value,
+                infNFSe.Element(_ns + "dhProc").Value,
                 out DateTime date) ? date : DateTime.MinValue;
 
-            xml.IssuerDocument = documentIssuer?.Element(_ns + "Cnpj")?.Value
-                          ?? documentIssuer?.Element(_ns + "Cpf")?.Value;
+            xml.IssuerDocument = emit?.Element(_ns + "CNPJ")?.Value
+                          ?? emit?.Element(_ns + "CPF")?.Value;
+                        
+            xml.SocialReasonIssuer = emit.Element(_ns + "xNome").Value;
 
-            xml.SocialReasonIssuer = prestadorServico.Element(_ns + "RazaoSocial").Value;
-
-            xml.RecipientDocument = documentRecipient?.Element(_ns + "Cnpj")?.Value
-                             ?? documentRecipient?.Element(_ns + "Cpf")?.Value;
+            xml.RecipientDocument = toma?.Element(_ns + "CNPJ")?.Value
+                             ?? toma?.Element(_ns + "CPF")?.Value;
 
             xml.Type = XmlReader.Enums.EnumNf.NFSe;
 

@@ -29,10 +29,8 @@ namespace XmlReader.Helpers
 
                 case "CFe":
                     return EnumNf.CFe;
-
-                case "ConsultarNfseServicoPrestadoResposta":
-                    return EnumNf.NFSe;
-
+                case "NFSe":
+                    return EnumNf.NFSe; 
                 default:
                     throw new Exception($"Tipo de XMl não reconhecido: {rootTag}");
             }

@@ -16,5 +16,4 @@ namespace XmlReader.Entities
         public string? ServiceTakerCnpj { get; set; }
         public string? ShipperCnpj { get; set; }
     }
-
 }

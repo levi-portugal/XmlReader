@@ -44,6 +44,5 @@ namespace XmlReader.Data.Context
                 entity.Property(e => e.Type).HasConversion<int>();
             });
         }
-
     }
 }
