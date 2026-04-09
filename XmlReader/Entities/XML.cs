@@ -15,5 +15,6 @@ namespace XmlReader.Entities
         public EnumNf Type { get; set; }
         public string? ServiceTakerCnpj { get; set; }
         public string? ShipperCnpj { get; set; }
+        public string? RecipientName { get; set; }
     }
 }

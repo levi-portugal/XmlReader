@@ -12,6 +12,18 @@ namespace XmlReader.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "FilesTable",
+                columns: table => new
+                {
+                    FileKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FilesTable", x => x.FileKey);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Xmls",
                 columns: table => new
                 {
@@ -26,7 +38,8 @@ namespace XmlReader.Migrations
                     SocialReasonRecipient = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<int>(type: "int", nullable: false),
                     ServiceTakerCnpj = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShipperCnpj = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ShipperCnpj = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RecipientName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -37,6 +50,9 @@ namespace XmlReader.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "FilesTable");
+
             migrationBuilder.DropTable(
                 name: "Xmls");
         }

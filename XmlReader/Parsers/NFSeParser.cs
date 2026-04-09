@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
 using XmlReader.Entities;
+using XmlReader.Helpers;
 
 namespace XmlReader.Parsers
 {
@@ -41,6 +42,8 @@ namespace XmlReader.Parsers
                              ?? toma?.Element(_ns + "CPF")?.Value;
 
             xml.Type = XmlReader.Enums.EnumNf.NFSe;
+
+            xml.RecipientName = toma?.Element(_ns + "xNome")?.Value;
 
             return xml;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Xml.Linq;
 using XmlReader.Entities;
+using XmlReader.Helpers;
 
 namespace XmlReader.Parsers
 {
@@ -43,6 +44,11 @@ namespace XmlReader.Parsers
                              ?? dest?.Element("CPF")?.Value;
 
             xml.Type = XmlReader.Enums.EnumNf.CFe;
+
+            FileTable file = new FileTable();
+
+            file.FileKey = xml.Key;
+            file.Content = Base64Transform.ConvertToBase64(xmlContent);
 
             return xml;
         }

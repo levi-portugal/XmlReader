@@ -31,7 +31,6 @@ namespace XmlReader.Helpers
             //vai pegar um por um
             foreach (var file in files)
             {
-
                 //tenta processar 
                 try
                 {
@@ -43,10 +42,20 @@ namespace XmlReader.Helpers
                     //manda processar esse conteudo 
                     XML xml = _processor.Process(content);
 
+                    // criar fileDattataaable
+
+                    FileTable fileTable = new FileTable()
+                    {
+                        FileKey = xml.Key,
+                        Content = Base64Transform.ConvertToBase64(content)
+                    };
+
                     //vai pegar o objeto xml que retornou do parser e vai tentar adicionar ao dbContext 
                     _db.Xmls.Add(xml);
-                    _db.SaveChanges();
+                    _db.FilesTable.Add(fileTable);
 
+                    _db.SaveChanges();
+                    
                     Console.WriteLine($"Sucesso: Nota {xml.XmlNumber} salva!");
                 }
                 catch (Exception ex)

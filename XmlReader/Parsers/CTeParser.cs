@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
 using XmlReader.Entities;
 using XmlReader.Enums;
+using XmlReader.Helpers;
 
 namespace XmlReader.Parsers
 {
@@ -51,11 +52,14 @@ namespace XmlReader.Parsers
 
             xml.ShipperCnpj = rem?.Element(_ns + "CNPJ")?.Value;
 
+            xml.RecipientName = toma4?.Element(_ns + "xNome")?.Value;
+
             xml.Type = Enum.TryParse(
                 ide.Element(_ns + "mod").Value,
                 out EnumNf type) ? type : EnumNf.CTe;
 
             return xml;
+
         }
     }
 }

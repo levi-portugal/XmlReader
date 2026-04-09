@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
 using XmlReader.Entities;
 using XmlReader.Enums;
+using XmlReader.Helpers;
 
 namespace XmlReader.Parsers
 {

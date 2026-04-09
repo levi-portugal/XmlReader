@@ -12,7 +12,7 @@ using XmlReader.Data.Context;
 namespace XmlReader.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260407143101_InitialCreate")]
+    [Migration("20260409122608_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,20 @@ namespace XmlReader.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("XmlReader.Entities.FileTable", b =>
+                {
+                    b.Property<string>("FileKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FileKey");
+
+                    b.ToTable("FilesTable");
+                });
 
             modelBuilder.Entity("XmlReader.Entities.XML", b =>
                 {
@@ -46,6 +60,9 @@ namespace XmlReader.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecipientDocument")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecipientName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ServiceTakerCnpj")

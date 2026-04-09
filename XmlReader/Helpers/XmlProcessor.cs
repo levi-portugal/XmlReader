@@ -1,11 +1,12 @@
-﻿using XmlReader.Entities;
+﻿using XmlReader.Data.Context;
+using XmlReader.Entities;
 using XmlReader.Enums;
 using XmlReader.Parsers;
 
 namespace XmlReader.Helpers
 {
     public class XmlProcessor
-    {    
+    {
         public XML Process (string xmlContent)
         {
            var type = XmlTypeDetector.Detect (xmlContent);

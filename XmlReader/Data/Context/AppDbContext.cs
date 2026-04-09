@@ -8,6 +8,7 @@ namespace XmlReader.Data.Context
     {
         //Isso vai dizer pro entity Framework pra criar uma tabela chamada Xmls baseado na entidade XML 
         public DbSet<XML> Xmls { get; set; }
+        public DbSet<FileTable> FilesTable { get; set; }
 
         //Talvez o OnConfiguring nao seja a maneira correta quando se tiver DI corretamente 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,6 +43,11 @@ namespace XmlReader.Data.Context
 
                 // Converte o Enum para Inteiro no banco (salva 55, 57, etc)
                 entity.Property(e => e.Type).HasConversion<int>();
+            });
+
+            modelBuilder.Entity<FileTable>(entity =>
+            {
+                entity.HasKey(e => e.FileKey);
             });
         }
     }

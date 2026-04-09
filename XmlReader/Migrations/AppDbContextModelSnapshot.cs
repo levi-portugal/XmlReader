@@ -22,6 +22,20 @@ namespace XmlReader.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("XmlReader.Entities.FileTable", b =>
+                {
+                    b.Property<string>("FileKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FileKey");
+
+                    b.ToTable("FilesTable");
+                });
+
             modelBuilder.Entity("XmlReader.Entities.XML", b =>
                 {
                     b.Property<int>("Id")
@@ -43,6 +57,9 @@ namespace XmlReader.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecipientDocument")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecipientName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ServiceTakerCnpj")

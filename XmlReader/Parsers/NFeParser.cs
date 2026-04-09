@@ -1,6 +1,9 @@
-﻿using System.Xml.Linq;
+﻿using System.Reflection.Metadata;
+using System.Xml.Linq;
+using XmlReader.Data.Context;
 using XmlReader.Entities;
 using XmlReader.Enums;
+using XmlReader.Helpers;
 
 namespace XmlReader.Parsers
 {
@@ -12,6 +15,11 @@ namespace XmlReader.Parsers
         public XML Parse(string xmlContent)
         {
             XDocument doc = XDocument.Parse(xmlContent);
+
+            if (doc == null)
+            {
+                throw new Exception($"O documento veio Nulo!! veja o xml");
+            }
 
             var infNFe = doc.Root
                             .Element(_ns + "NFe")
@@ -43,6 +51,7 @@ namespace XmlReader.Parsers
                           ?? emit.Element(_ns + "CPF").Value;
             xml.SocialReasonIssuer = emit.Element(_ns + "xNome").Value;
             xml.RecipientDocument = dest?.Element(_ns + "CNPJ")?.Value;
+            xml.RecipientName = dest?.Element(_ns + "xNome")?.Value;
             xml.SocialReasonRecipient = dest?.Element(_ns + "xNome")?.Value;
             xml.Type = Enum.TryParse(ide.Element(_ns + "mod").Value,
                     out EnumNf type) ? type : EnumNf.NFe;
