@@ -7,22 +7,22 @@ namespace XmlReader.Helpers
 {
     public class XmlProcessor
     {
-        public XML Process (string xmlContent)
+        public static XML Process (string xmlContent)
         {
-           var type = XmlTypeDetector.Detect (xmlContent);
+            var type = XmlTypeDetector.Detect(xmlContent);
 
             switch (type)
             {
                 case EnumNf.NFe:
-                    return new NFeParser().Parse (xmlContent); 
+                    return NFeParser.Parse (xmlContent); 
                 case EnumNf.NFCe:
-                    return new NFCeParser().Parse (xmlContent); 
+                    return NFCeParser.Parse (xmlContent); 
                 case EnumNf.NFSe:
-                    return new NFSeParser().Parse (xmlContent); 
+                    return NFSeParser.Parse (xmlContent); 
                 case EnumNf.CFe:
-                    return new CFeParser().Parse (xmlContent); 
+                    return CFeParser.Parse (xmlContent); 
                 case EnumNf.CTe:
-                    return new CTeParser().Parse (xmlContent); 
+                    return CTeParser.Parse (xmlContent); 
                 default: throw new Exception($"Tipo de xml não reconhecido! {type}");
             }
         }

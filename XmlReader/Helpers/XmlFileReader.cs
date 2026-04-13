@@ -1,18 +1,18 @@
 ﻿using XmlReader.Data.Context;
 using XmlReader.Entities;
+using XmlReader.Interfaces;
+using XmlReader.Services;
 
 namespace XmlReader.Helpers
 {
     public class XmlFileReader
     {
-        private readonly AppDbContext _db;
-        private readonly XmlProcessor _processor;
+        private readonly IXmlService _xmlService;
 
         // Recebe o contexto por injeção — quem cria o XmlFileReader decide o ciclo de vida do db
-        public XmlFileReader(AppDbContext db)
+        public XmlFileReader(IXmlService xmlService)
         {
-            _db = db;
-            _processor = new XmlProcessor();
+            _xmlService = xmlService;
         }
 
         public void ProcessAndSaveFolder(string folderPath)
@@ -31,6 +31,7 @@ namespace XmlReader.Helpers
             //vai pegar um por um
             foreach (var file in files)
             {
+
                 //tenta processar 
                 try
                 {
@@ -40,9 +41,7 @@ namespace XmlReader.Helpers
                     string content = File.ReadAllText(file);
 
                     //manda processar esse conteudo 
-                    XML xml = _processor.Process(content);
-
-                    // criar fileDattataaable
+                    XML xml = XmlProcessor.Process(content);
 
                     FileTable fileTable = new FileTable()
                     {
@@ -51,11 +50,9 @@ namespace XmlReader.Helpers
                     };
 
                     //vai pegar o objeto xml que retornou do parser e vai tentar adicionar ao dbContext 
-                    _db.Xmls.Add(xml);
-                    _db.FilesTable.Add(fileTable);
+                    _xmlService.CreateXml(xml);
+                    _xmlService.CreateFileTable(fileTable);
 
-                    _db.SaveChanges();
-                    
                     Console.WriteLine($"Sucesso: Nota {xml.XmlNumber} salva!");
                 }
                 catch (Exception ex)

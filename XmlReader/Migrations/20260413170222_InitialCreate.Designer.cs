@@ -12,7 +12,7 @@ using XmlReader.Data.Context;
 namespace XmlReader.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260409122608_InitialCreate")]
+    [Migration("20260413170222_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

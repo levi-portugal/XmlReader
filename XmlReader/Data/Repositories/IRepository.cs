@@ -4,7 +4,10 @@ using System.Text;
 
 namespace XmlReader.Data.Repositories
 {
-    public interface IRepository
+    public interface IRepository<T>
     {
+        IQueryable<T> GetAll();
+        T GetById(string id);
+        void Create(T entity);
     }
 }

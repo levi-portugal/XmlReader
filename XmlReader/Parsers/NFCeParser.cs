@@ -7,11 +7,16 @@ namespace XmlReader.Parsers
 {
     public class NFCeParser 
     {
-        private readonly XNamespace _ns = "http://www.portalfiscal.inf.br/nfe";
+        private static readonly XNamespace _ns = "http://www.portalfiscal.inf.br/nfe";
 
-        public XML Parse (string xmlContent)
+        public static XML Parse (string xmlContent)
         {
             XDocument doc = XDocument.Parse(xmlContent);
+
+            if (doc == null)
+            {
+                throw new Exception($"O documento veio Nulo!! veja o xml");
+            }
 
             var infNFe = doc.Root
                             .Element(_ns + "NFe")
@@ -33,7 +38,6 @@ namespace XmlReader.Parsers
             xml.IssuerDocument = emit.Element(_ns + "CNPJ").Value
                           ?? emit.Element(_ns + "CPF").Value;
             xml.SocialReasonIssuer = emit.Element(_ns + "xNome").Value;
-
             xml.Type = Enum.TryParse(
                 ide.Element(_ns + "mod").Value,
                 out EnumNf type) ? type : EnumNf.NFCe;
