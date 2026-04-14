@@ -47,7 +47,7 @@ namespace XmlReader.Data.Context
 
             modelBuilder.Entity<FileTable>(entity =>
             {
-                entity.HasKey(e => e.FileKey);
+                entity.HasKey(e => e.Key);
             });
         }
     }

@@ -24,14 +24,14 @@ namespace XmlReader.Migrations
 
             modelBuilder.Entity("XmlReader.Entities.FileTable", b =>
                 {
-                    b.Property<string>("FileKey")
+                    b.Property<string>("Key")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FileKey");
+                    b.HasKey("Key");
 
                     b.ToTable("FilesTable");
                 });

@@ -26,10 +26,8 @@ namespace XmlReader.Helpers
             if (string.IsNullOrWhiteSpace(base64))
                 return false;
 
-            // Remove espaços/quebras de linha
             base64 = base64.Trim();
 
-            // Base64 precisa ter tamanho múltiplo de 4
             if (base64.Length % 4 != 0)
                 return false;
 

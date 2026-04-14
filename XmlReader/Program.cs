@@ -22,17 +22,16 @@ services.AddScoped<IRepository<XML>, Repository<XML>>();
 services.AddScoped<IRepository<FileTable>, Repository<FileTable>>();
 services.AddScoped<IXmlService, XmlService>();
 services.AddScoped<XmlFileReader>();
+services.AddScoped<CreateFileTable>();
 
 var serviceProvider = services.BuildServiceProvider(); 
 
-// Aplica migrations usando o provider, não uma instância avulsa
 using (var scope = serviceProvider.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
 }
 
-// Resolve o XmlFileReader pelo container 
 using (var scope = serviceProvider.CreateScope())
 {
     var reader = scope.ServiceProvider.GetRequiredService<XmlFileReader>();

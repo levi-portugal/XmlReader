@@ -30,7 +30,8 @@ namespace XmlReader.Services
             var xml = _repositoryFileTable.GetById(id);
             if (xml != null)
             {
-                return Base64Transform.ConvertBase64ToString(xml.Content.ToString());
+                var x = Base64Transform.ConvertBase64ToString(xml.Content);
+                return x;
             }
             else
             {
@@ -44,10 +45,18 @@ namespace XmlReader.Services
 
             var x = XmlProcessor.Process(xml);
 
+            FileTable fileTable = new FileTable()
+            {
+                Key = x.Key,
+                Content = content
+            };
+
             _repositoryXml.Create(x);
+            CreateFileTable(fileTable);
+
         }
 
-        public List<XML> FilterXmlByProperties(string? issuerDocument, string? recipientDocument, string? shipperCnpj, DateTime? startDate, DateTime? endDate, string? serviceTakerCnpj)
+        public List<XML> FilterXmlByProperties(string? issuerDocument, string? recipientDocument, string? shipperCnpj, DateTime? startDate, DateTime? endDate, string? serviceTakerCnpj, string? recipientName)
         {
             var query = _repositoryXml.GetAll();
 
@@ -79,7 +88,11 @@ namespace XmlReader.Services
             {
                 query = query.Where(x => x.EmissionDate <= endDate);
             }
-           
+            if (recipientName != null)
+            {
+                query = query.Where(x => x.RecipientName == recipientName);
+            }
+
             return query.ToList();
         }
     }

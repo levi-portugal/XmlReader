@@ -7,7 +7,7 @@ namespace XmlReader.Entities
 {
     public class FileTable
     {
-        public string FileKey { get; set; }
+        public string Key { get; set; }
         public string Content { get; set; }
     }
 }

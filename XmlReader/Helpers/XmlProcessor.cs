@@ -1,6 +1,7 @@
 ﻿using XmlReader.Data.Context;
 using XmlReader.Entities;
 using XmlReader.Enums;
+using XmlReader.Interfaces;
 using XmlReader.Parsers;
 
 namespace XmlReader.Helpers

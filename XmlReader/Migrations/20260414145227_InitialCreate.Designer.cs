@@ -12,7 +12,7 @@ using XmlReader.Data.Context;
 namespace XmlReader.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260413170222_InitialCreate")]
+    [Migration("20260414145227_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,14 +27,14 @@ namespace XmlReader.Migrations
 
             modelBuilder.Entity("XmlReader.Entities.FileTable", b =>
                 {
-                    b.Property<string>("FileKey")
+                    b.Property<string>("Key")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FileKey");
+                    b.HasKey("Key");
 
                     b.ToTable("FilesTable");
                 });

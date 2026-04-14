@@ -1,14 +1,18 @@
-﻿using System.Globalization;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Globalization;
 using System.Xml.Linq;
 using XmlReader.Entities;
 using XmlReader.Helpers;
+using XmlReader.Interfaces;
+using XmlReader.Services;
 
 namespace XmlReader.Parsers
 {
     public class CFeParser 
     {
+
         public static XML Parse (string xmlContent)
-        {
+        {          
             XDocument doc = XDocument.Parse(xmlContent);
 
             if (doc == null)
@@ -39,11 +43,6 @@ namespace XmlReader.Parsers
             xml.RecipientDocument = dest?.Element("CNPJ")?.Value
                              ?? dest?.Element("CPF")?.Value;
             xml.Type = XmlReader.Enums.EnumNf.CFe;
-
-            FileTable file = new FileTable();
-
-            file.FileKey = xml.Key;
-            file.Content = Base64Transform.ConvertToBase64(xmlContent);
 
             return xml;
         }

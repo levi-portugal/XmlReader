@@ -60,11 +60,11 @@ namespace XmlTestProjectApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult FilterXmlByPropertie([FromQuery] string? issuerDocument, [FromQuery] string? recipientDocument, [FromQuery] string? shipperCnpj, DateTime? startDate, DateTime? endDate, string? serviceTakerCnpj)
+        public IActionResult FilterXmlByPropertie([FromQuery] string? issuerDocument, [FromQuery] string? recipientDocument, [FromQuery] string? shipperCnpj, [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] string? serviceTakerCnpj , [FromQuery] string? recipientName)
         {        
             try
             {
-                var xmls = _xmlservice.FilterXmlByProperties(issuerDocument, recipientDocument, shipperCnpj, startDate, endDate, serviceTakerCnpj);
+                var xmls = _xmlservice.FilterXmlByProperties(issuerDocument, recipientDocument, shipperCnpj, startDate, endDate, serviceTakerCnpj, recipientName);
                 return Ok(xmls);
             }
             catch (ArgumentException ex)

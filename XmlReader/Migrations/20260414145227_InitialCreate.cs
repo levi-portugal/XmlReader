@@ -15,12 +15,12 @@ namespace XmlReader.Migrations
                 name: "FilesTable",
                 columns: table => new
                 {
-                    FileKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FilesTable", x => x.FileKey);
+                    table.PrimaryKey("PK_FilesTable", x => x.Key);
                 });
 
             migrationBuilder.CreateTable(

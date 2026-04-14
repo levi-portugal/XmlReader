@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using XmlReader.Entities;
+﻿using XmlReader.Entities;
 
 namespace XmlReader.Interfaces
 {
@@ -11,6 +8,6 @@ namespace XmlReader.Interfaces
          public void CreateFileTable(FileTable fileTable);
          public string GetXmlById(string id);
          public void CreateXmlUsingBase64(string content);
-         public List<XML> FilterXmlByProperties(string? issuerDocument, string? recipientDocument, string? shipperCnpj, DateTime? startDate, DateTime? endDate, string? serviceTakerCnpj);
+         public List<XML> FilterXmlByProperties(string? issuerDocument, string? recipientDocument, string? shipperCnpj, DateTime? startDate, DateTime? endDate, string? serviceTakerCnpj, string? RecipientName);
      }
 }
