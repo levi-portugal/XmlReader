@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using XmlReader.Data.Context;
 using XmlReader.Data.Repositories;
 using XmlReader.Entities;
@@ -16,14 +16,26 @@ builder.Services.AddScoped<IRepository<XML>, Repository<XML>>();
 builder.Services.AddScoped<IRepository<FileTable>, Repository<FileTable>>();
 builder.Services.AddScoped<IXmlService, XmlService>();
 
+//Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirVue", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")  // Porta padrão do Vite (Vue)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
-// Aplica migrations automaticamente na inicializa��o
+// Aplica migrations automaticamente na inicialização
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
 }
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -31,6 +43,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseCors("PermitirVue");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

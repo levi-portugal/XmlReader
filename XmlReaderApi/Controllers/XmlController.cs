@@ -47,7 +47,7 @@ namespace XmlTestProjectApi.Controllers
             try
             {
                 _xmlservice.CreateXmlUsingBase64(content);
-                return StatusCode(201, content);
+                return StatusCode(201, new { mensagem = "Sucesso" });
             }
             catch (ArgumentException ex)
             {
@@ -75,6 +75,12 @@ namespace XmlTestProjectApi.Controllers
             {
                 return StatusCode(500, "Um erro interno ocorreu");
             }
+        }
+
+        [HttpPost]
+        public IActionResult UploadXml([FromForm] )
+        {
+
         }
     }
 }
