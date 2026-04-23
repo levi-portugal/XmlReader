@@ -21,7 +21,7 @@
     <p v-if="carregando">Carregando...</p>
     <p v-if="erro" style="color: red">{{ erro }}</p>
 
-    <p>Tudo pronto pa tu Jony 4.0</p>
+    <p>Tudo pronto pa tu Jony v5.0</p>
   </div>
 </template>
 
@@ -39,7 +39,8 @@ const API_URL = 'https://localhost:7058/api/xml'
 
 </script>
 
-<style>
+<style >
+
 .painel {
   h1 {
     text-align: center;
@@ -65,12 +66,13 @@ input {
     padding: 0 16px;
     font-size: 14px;
     border: 1px solid #d1d5db;
-    border-radius: 8px; /* Cantos arredondados */
+    border-radius: 8px; 
     background-color: #ffffff;
     color: #212121;
     transition: all 0.2s ease-in-out;
     box-sizing: border-box;
     padding-bottom: 0px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .input-field:focus {
@@ -89,6 +91,7 @@ button {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 h2{

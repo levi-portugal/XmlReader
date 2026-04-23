@@ -84,5 +84,10 @@ try {
           h2{
             color: #212121;
         }
+
+        input{
+          margin-left:20px;
+          margin-bottom: 10px;
+        }
     }
 </style>

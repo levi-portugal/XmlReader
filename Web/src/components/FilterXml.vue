@@ -8,15 +8,14 @@
         <input v-model="serviceTakerCnpj" placeholder="CNPJ Tomador" />
         <input v-model="recipientName" placeholder="Nome Destinatário" />
 
-        <label style="color: #212121; display: flex;flex-direction: column;">
-            Data inicio:
+            <p>Data inicial</p>
+            <div Class = "Text">
             <input type="date" v-model="startDate" style="color: #212121;" />
-        </label>
-
-        <label style="color: #212121; display: flex;flex-direction: column;">
-            Data final:
+            </div>
+            <p>Data final</p>
+            <div Class = "Text">
             <input type="date" v-model="endDate" placeholder="Data final" style="color: #212121;" />
-        </label>
+            </div>
         <button @click="filtrarXml()">Filtrar</button>
     </div>
     <DataTable :value="listaFiltrada" v-if="listaFiltrada.length > 0" paginator :rows="10"
@@ -102,6 +101,11 @@ async function filtrarXml() {
 
     h2 {
         color: #212121;
+        padding-top: 5px;
+    }
+
+    button{
+        margin-left: 20px;
     }
 }
 
@@ -113,7 +117,6 @@ async function filtrarXml() {
     border: 1px solid #dde3f0 !important;
     text-align: center;
     padding: 12px 15px;
-
 }
 
 .p-datatable-table-container {
@@ -121,7 +124,6 @@ async function filtrarXml() {
     border-radius: 8px;
 }
 
-/* Linhas zebradas */
 .p-datatable .p-datatable-tbody>tr {
     background: #ffffff;
 }
@@ -130,7 +132,6 @@ async function filtrarXml() {
     background: #f9fbff;
 }
 
-/* Células */
 .p-datatable .p-datatable-tbody>tr>td {
     padding: 12px 15px;
     border: 1px solid #eef1f8 !important;
@@ -138,8 +139,18 @@ async function filtrarXml() {
     text-align: center;
 }
 
-/* Hover */
 .p-datatable .p-datatable-tbody>tr:hover {
     background: #eef3fc !important;
+}
+
+.quadro input{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 3px;
+}
+
+p{
+    margin-bottom: -1%;
+    margin-left: 20px;
 }
 </style>
